@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>راهنمای مدیریت منوها در پنل مدیریت Dima CMS</title>
+    <style>
+        body { font-family: Vazirmatn, Tahoma, sans-serif; background: #f9f9f9; color: #222; margin: 0; padding: 0; }
+        .container { max-width: 900px; margin: 40px auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px #0001; padding: 32px; }
+        h1, h2, h3 { color: #007bff; }
+        pre, code { background: #f3f3f3; border-radius: 6px; padding: 8px; direction: ltr; font-size: 0.95rem; }
+        .tip { background: #e3fcec; border-right: 4px solid #28a745; padding: 8px 16px; border-radius: 6px; margin: 16px 0; }
+        .back { margin-top: 32px; text-align: left; }
+        .back a { color: #007bff; text-decoration: none; }
+        ul.guide { margin: 16px 0 16px 24px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>راهنمای مدیریت منوها در پنل مدیریت Dima CMS</h1>
+    <div class="tip">
+        این راهنما نحوه افزودن، ویرایش، حذف و جابجایی منوها (چندسطحی) را در پنل مدیریت Dima CMS آموزش می‌دهد.
+    </div>
+    <h2>۱. افزودن منوی جدید</h2>
+    <ul class="guide">
+        <li>از منوی مدیریت به بخش <b>مدیریت منوها</b> بروید.</li>
+        <li>روی <b>افزودن منوی جدید</b> کلیک کنید.</li>
+        <li>عنوان، آدرس (URL)، آیکون (اختیاری)، جایگاه (admin, header, footer)، والد (در صورت نیاز)، ترتیب، نقش و وضعیت فعال را وارد و ذخیره کنید.</li>
+    </ul>
+    <h2>۲. ویرایش یا حذف منو</h2>
+    <ul class="guide">
+        <li>در لیست منوها، روی <b>ویرایش</b> یا <b>حذف</b> کنار هر منو کلیک کنید.</li>
+        <li>در فرم ویرایش، اطلاعات را تغییر داده و ذخیره کنید.</li>
+    </ul>
+    <h2>۳. جابجایی و ساختاردهی منوها (Drag & Drop)</h2>
+    <ul class="guide">
+        <li>برای جابجایی منوها یا زیرمنوها، آیتم مورد نظر را با ماوس بکشید و در جایگاه جدید رها کنید.</li>
+        <li>برای تغییر والد (زیرمنو کردن)، آیتم را به داخل منوی دیگر بکشید.</li>
+        <li>پس از اتمام جابجایی، روی دکمه <b>ذخیره ترتیب منو</b> کلیک کنید تا ساختار جدید ذخیره شود.</li>
+        <li>افکت آبی رنگ مقصد و پیام موفقیت/خطا نمایش داده می‌شود.</li>
+    </ul>
+    <h2>۴. نکات توسعه و امنیت</h2>
+    <ul class="guide">
+        <li>امکان ساخت منوهای چندسطحی بدون محدودیت عمق وجود دارد.</li>
+        <li>هر منو می‌تواند به نقش خاص یا همه کاربران نمایش داده شود.</li>
+        <li>برای جلوگیری از حلقه بی‌نهایت، جابجایی منو به داخل خودش یا فرزندانش مجاز نیست.</li>
+        <li>تمام داده‌ها با <code>htmlspecialchars</code> رندر می‌شود تا از XSS جلوگیری شود.</li>
+        <li>در صورت نیاز به توسعه بیشتر (مثلاً منوی سایت)، کافی است position را تغییر دهید.</li>
+    </ul>
+    <div class="tip">
+        برای افزودن منوی جدید یا جابجایی منوها، نیازی به کدنویسی نیست؛ همه چیز از طریق پنل مدیریت انجام می‌شود.
+    </div>
+    <div class="back">
+        <a href="../README.md">⬅ بازگشت به مستندات اصلی</a>
+    </div>
+</div>
+</body>
+</html> 

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>مستندات فرم‌ساز Dima CMS</title>
+    <style>
+        body { font-family: Vazirmatn, Tahoma, sans-serif; background: #f9f9f9; color: #222; margin: 0; padding: 0; }
+        .container { max-width: 900px; margin: 40px auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px #0001; padding: 32px; }
+        h1, h2, h3 { color: #007bff; }
+        pre, code { background: #f3f3f3; border-radius: 6px; padding: 8px; direction: ltr; font-size: 0.95rem; }
+        .tip { background: #e3fcec; border-right: 4px solid #28a745; padding: 8px 16px; border-radius: 6px; margin: 16px 0; }
+        .back { margin-top: 32px; text-align: left; }
+        .back a { color: #007bff; text-decoration: none; }
+        table { border-collapse: collapse; width: 100%; margin: 16px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background: #f0f8ff; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>مستندات فرم‌ساز Dima CMS</h1>
+    <div class="tip">
+        فرم‌ساز Dima CMS امکان ساخت فرم‌های دلخواه (تماس با ما، نظرسنجی، درخواست و ...) را به صورت کاملاً داینامیک و امن فراهم می‌کند.
+    </div>
+    <h2>۱. ساخت فرم جدید</h2>
+    <ol>
+        <li>از منوی مدیریت به <b>فرم‌ها</b> بروید.</li>
+        <li>روی <b>ایجاد فرم جدید</b> کلیک کنید.</li>
+        <li>عنوان فرم (مثلاً «تماس با ما») را وارد و ذخیره کنید.</li>
+    </ol>
+    <h2>۲. افزودن فیلد به فرم</h2>
+    <ol>
+        <li>در لیست فرم‌ها، روی <b>فیلدها</b> یا <b>مدیریت فیلدها</b> فرم مورد نظر کلیک کنید.</li>
+        <li>روی <b>افزودن فیلد جدید</b> کلیک کنید.</li>
+        <li>مشخصات فیلد را وارد کنید:
+            <ul>
+                <li><b>برچسب (label):</b> عنوان نمایشی فیلد (مثلاً «ایمیل»)</li>
+                <li><b>نام (name):</b> نام انگلیسی یکتا (مثلاً <code>email</code>)</li>
+                <li><b>نوع (type):</b> <code>text</code>، <code>email</code>، <code>textarea</code> و ...</li>
+                <li><b>اجباری بودن (required):</b> تیک بزنید اگر فیلد الزامی است</li>
+                <li><b>ترتیب نمایش (sort_order):</b> عدد دلخواه</li>
+            </ul>
+        </li>
+        <li>ذخیره کنید. فیلد به فرم افزوده می‌شود.</li>
+    </ol>
+    <h2>۳. نمایش فرم در سایت</h2>
+    <ul>
+        <li>برای نمایش فرم، کافی است آدرس <code>/form/show/ID</code> را فراخوانی کنید.<br>مثال: <code>/form/show/3</code></li>
+        <li>برای صفحه تماس با ما، می‌توانید route اختصاصی (مثلاً <code>/contact</code>) را به این آدرس ریدایرکت کنید.</li>
+    </ul>
+    <h2>۴. مدیریت پاسخ‌های فرم</h2>
+    <ol>
+        <li>در منوی مدیریت فرم‌ها، روی <b>مشاهده پاسخ‌ها</b> کلیک کنید.</li>
+        <li>لیست پاسخ‌های ثبت‌شده را مشاهده و بررسی کنید.</li>
+    </ol>
+    <h2>۵. انواع فیلدهای پشتیبانی‌شده</h2>
+    <table>
+        <tr><th>نوع</th><th>توضیح</th></tr>
+        <tr><td>text</td><td>متن کوتاه (نام، موضوع و ...)</td></tr>
+        <tr><td>email</td><td>ایمیل</td></tr>
+        <tr><td>textarea</td><td>متن بلند (پیام و ...)</td></tr>
+        <tr><td>number</td><td>عدد</td></tr>
+        <tr><td>date</td><td>تاریخ</td></tr>
+        <tr><td>select</td><td>لیست کشویی (در صورت توسعه)</td></tr>
+        <!-- سایر انواع قابل توسعه -->
+    </table>
+    <h2>۶. نکات امنیتی و توسعه</h2>
+    <ul>
+        <li>تمام فرم‌ها دارای <b>CSRF Token</b> و اعتبارسنجی سمت سرور هستند.</li>
+        <li>پاسخ‌ها در دیتابیس ذخیره و قابل مشاهده در مدیریت هستند.</li>
+        <li>امکان افزودن فیلدهای سفارشی و توسعه انواع جدید وجود دارد.</li>
+        <li>می‌توانید فرم‌ها را به صفحات دلخواه (تماس با ما و ...) متصل کنید.</li>
+        <li>در صورت نیاز به ارسال ایمیل یا webhook، توسعه آسان است.</li>
+    </ul>
+    <div class="tip">
+        برای اتصال فرم تماس با ما به صفحه <b>/contact</b>، کافی است route مربوطه را به <code>/form/show/ID</code> ریدایرکت کنید یا از اکشن <code>contact</code> در <code>PageController</code> استفاده نمایید.
+    </div>
+    <div class="back">
+        <a href="../README.md">⬅ بازگشت به مستندات اصلی</a>
+    </div>
+</div>
+</body>
+</html> 

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>مستندات کامنت و اشتراک‌گذاری پست در Dima CMS</title>
+    <style>
+        body { font-family: Vazirmatn, Tahoma, sans-serif; background: #f9f9f9; color: #222; margin: 0; padding: 0; }
+        .container { max-width: 900px; margin: 40px auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px #0001; padding: 32px; }
+        h1, h2, h3 { color: #007bff; }
+        pre, code { background: #f3f3f3; border-radius: 6px; padding: 8px; direction: ltr; font-size: 0.95rem; }
+        .tip { background: #e3fcec; border-right: 4px solid #28a745; padding: 8px 16px; border-radius: 6px; margin: 16px 0; }
+        .back { margin-top: 32px; text-align: left; }
+        .back a { color: #007bff; text-decoration: none; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>کامنت و اشتراک‌گذاری پست در Dima CMS</h1>
+    <div class="tip">
+        این راهنما نحوه افزودن <b>کامنت‌گذاری</b> و <b>دکمه‌های اشتراک‌گذاری شبکه‌های اجتماعی</b> را به پست‌ها آموزش می‌دهد.
+    </div>
+    <h2>۱. ساختار دیتابیس کامنت</h2>
+    <pre><code>CREATE TABLE comments (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  post_id INT,
+  user_id INT DEFAULT NULL,
+  name VARCHAR(100),
+  email VARCHAR(100),
+  content TEXT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  status ENUM('pending','approved') DEFAULT 'pending',
+  FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE
+);
+</code></pre>
+    <h2>۲. فرم ارسال کامنت (در view پست)</h2>
+    <pre><code>&lt;form method="post" action=""&gt;
+    &lt;input type="text" name="name" placeholder="نام شما" required&gt;
+    &lt;input type="email" name="email" placeholder="ایمیل" required&gt;
+    &lt;textarea name="content" placeholder="متن کامنت" required&gt;&lt;/textarea&gt;
+    &lt;button type="submit"&gt;ارسال کامنت&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+    <h2>۳. نمونه کنترلر برای ذخیره کامنت</h2>
+    <pre><code>// در متد show پست:
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'])) {
+    $commentModel = $this->model('Comment');
+    $commentModel->add($post_id, $_POST['name'], $_POST['email'], $_POST['content']);
+    $msg = 'کامنت شما ثبت شد و پس از تایید نمایش داده می‌شود.';
+}
+$comments = $commentModel->getApproved($post_id);
+$this->view('post/show', ['post' => $post, 'comments' => $comments, 'msg' => $msg ?? null]);
+</code></pre>
+    <h2>۴. مدل Comment (نمونه متدها)</h2>
+    <pre><code>public function add($post_id, $name, $email, $content) {
+    $stmt = $this->dbh->prepare('INSERT INTO comments (post_id, name, email, content) VALUES (?, ?, ?, ?)');
+    $stmt->execute([$post_id, $name, $email, $content]);
+}
+public function getApproved($post_id) {
+    $stmt = $this->dbh->prepare('SELECT * FROM comments WHERE post_id = ? AND status = "approved" ORDER BY created_at DESC');
+    $stmt->execute([$post_id]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+</code></pre>
+    <h2>۵. نمایش کامنت‌ها در view پست</h2>
+    <pre><code>&lt;h3&gt;نظرات کاربران&lt;/h3&gt;
+&lt;?php foreach (($comments ?? []) as $c): ?&gt;
+    &lt;div class="comment"&gt;
+        &lt;b&gt;&lt;?= htmlspecialchars($c['name']) ?&gt;&lt;/b&gt;:
+        &lt;p&gt;&lt;?= nl2br(htmlspecialchars($c['content'])) ?&gt;&lt;/p&gt;
+    &lt;/div&gt;
+&lt;?php endforeach; ?&gt;
+</code></pre>
+    <h2>۶. دکمه‌های اشتراک‌گذاری شبکه‌های اجتماعی</h2>
+    <pre><code>&lt;div class="social-share"&gt;
+    &lt;a href="https://t.me/share/url?url=&lt;?= urlencode($url) ?&gt;&amp;text=&lt;?= urlencode($title) ?&gt;" target="_blank"&gt;تلگرام&lt;/a&gt;
+    &lt;a href="https://twitter.com/intent/tweet?url=&lt;?= urlencode($url) ?&gt;&amp;text=&lt;?= urlencode($title) ?&gt;" target="_blank"&gt;توییتر&lt;/a&gt;
+    &lt;a href="https://www.facebook.com/sharer/sharer.php?u=&lt;?= urlencode($url) ?&gt;" target="_blank"&gt;فیسبوک&lt;/a&gt;
+&lt;/div&gt;
+</code></pre>
+    <div class="tip">
+        برای زیباسازی دکمه‌های اشتراک‌گذاری می‌توانید از آیکون‌های FontAwesome یا Bootstrap Icons استفاده کنید.
+    </div>
+    <div class="back">
+        <a href="../README.md">⬅ بازگشت به مستندات</a>
+    </div>
+</div>
+</body>
+</html> 

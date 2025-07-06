@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>مستندات سیستم منوی داینامیک Dima CMS</title>
+    <style>
+        body { font-family: Vazirmatn, Tahoma, sans-serif; background: #f9f9f9; color: #222; margin: 0; padding: 0; }
+        .container { max-width: 900px; margin: 40px auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px #0001; padding: 32px; }
+        h1, h2, h3 { color: #007bff; }
+        pre, code { background: #f3f3f3; border-radius: 6px; padding: 8px; direction: ltr; font-size: 0.95rem; }
+        .tip { background: #e3fcec; border-right: 4px solid #28a745; padding: 8px 16px; border-radius: 6px; margin: 16px 0; }
+        .back { margin-top: 32px; text-align: left; }
+        .back a { color: #007bff; text-decoration: none; }
+        table { border-collapse: collapse; width: 100%; margin: 16px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background: #f0f8ff; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>مستندات سیستم منوی داینامیک Dima CMS</h1>
+    <div class="tip">
+        این سیستم امکان ساخت منوهای چندسطحی، داینامیک و قابل توسعه را برای مدیریت و سایت فراهم می‌کند.
+    </div>
+    <h2>۱. ساختار جدول menus</h2>
+    <pre><code>CREATE TABLE menus (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(100) NOT NULL,
+  url VARCHAR(255) NOT NULL,
+  icon VARCHAR(32) DEFAULT NULL,
+  position VARCHAR(32) DEFAULT 'admin',
+  parent_id INT DEFAULT NULL,
+  sort_order INT DEFAULT 0,
+  access_role VARCHAR(32) DEFAULT NULL,
+  is_active TINYINT(1) DEFAULT 1,
+  FOREIGN KEY (parent_id) REFERENCES menus(id) ON DELETE CASCADE
+);</code></pre>
+    <h2>۲. مدل Menu و متدها</h2>
+    <pre><code>class Menu extends Model {
+    public function getByPosition($position = 'admin', $role = null) {...}
+    public function getTree($position = 'admin', $role = null) {...}
+}</code></pre>
+    <h2>۳. نمونه درج منوهای اولیه</h2>
+    <pre><code>INSERT INTO menus (title, url, icon, position, parent_id, sort_order, access_role, is_active) VALUES
+('داشبورد', '/admin/dashboard', '🏠', 'admin', NULL, 1, NULL, 1),
+('کاربران', '/admin/user', '👤', 'admin', NULL, 2, NULL, 1),
+('مطالب', '/admin/post', '📝', 'admin', NULL, 3, NULL, 1),
+('دسته‌بندی', '/admin/category', '📂', 'admin', NULL, 4, NULL, 1),
+('صفحات', '/admin/page', '📄', 'admin', NULL, 5, NULL, 1),
+('فروشگاه', '/admin/shop', '🛒', 'admin', NULL, 6, NULL, 1),
+('فرم‌ها', '/admin/form', '📋', 'admin', NULL, 7, NULL, 1),
+('تنظیمات', '/admin/settings', '⚙️', 'admin', NULL, 8, NULL, 1);
+</code></pre>
+    <h2>۴. رندر منوی داینامیک در layout</h2>
+    <pre><code>require_once 'app/models/Menu.php';
+$menuModel = new Menu();
+$adminMenu = $menuModel->getTree('admin', $_SESSION['user']['role'] ?? null);
+function renderMenu($items, $level = 0) {
+    if (empty($items)) return;
+    $ulClass = $level === 0 ? 'navbar-nav mx-auto' : 'dropdown-menu';
+    echo '<ul class="' . $ulClass . '">';
+    foreach ($items as $item) {
+        $hasChildren = !empty($item['children']);
+        $liClass = 'nav-item';
+        if ($hasChildren) $liClass .= ' dropdown';
+        echo '<li class="' . $liClass . '">';
+        $aClass = $level === 0 ? 'nav-link' : 'dropdown-item';
+        if ($hasChildren) $aClass .= ' dropdown-toggle';
+        echo '<a class="' . $aClass . '" href="' . htmlspecialchars($item['url']) . '"' . ($hasChildren ? ' data-bs-toggle="dropdown"' : '') . '>' . ($item['icon'] ? $item['icon'] . ' ' : '') . htmlspecialchars($item['title']) . '</a>';
+        if ($hasChildren) {
+            renderMenu($item['children'], $level + 1);
+        }
+        echo '</li>';
+    }
+    echo '</ul>';
+}
+renderMenu($adminMenu);
+</code></pre>
+    <h2>۵. نکات توسعه و امنیت</h2>
+    <ul>
+        <li>هر منو می‌تواند بی‌نهایت زیرمنو داشته باشد (parent_id).</li>
+        <li>امکان تعریف منو برای موقعیت‌های مختلف (position: admin, header, footer و ...).</li>
+        <li>پشتیبانی از سطح دسترسی (access_role) برای نمایش منو به نقش‌های خاص.</li>
+        <li>افزونه‌ها و ماژول‌ها می‌توانند منوی جدید اضافه کنند.</li>
+        <li>برای جلوگیری از XSS، تمام خروجی‌ها با <code>htmlspecialchars</code> رندر می‌شود.</li>
+        <li>برای UX بهتر، از CSS سفارشی (menu.css) برای dropdown چندسطحی استفاده کنید.</li>
+    </ul>
+    <div class="tip">
+        برای افزودن منوی جدید، کافی است رکورد جدید به جدول <b>menus</b> اضافه کنید یا از پنل مدیریت (در صورت توسعه) استفاده نمایید.
+    </div>
+    <div class="back">
+        <a href="../README.md">⬅ بازگشت به مستندات اصلی</a>
+    </div>
+</div>
+</body>
+</html> 

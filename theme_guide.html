@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>راهنمای طراحی قالب Dima CMS</title>
+    <style>
+        body { font-family: Vazirmatn, Tahoma, sans-serif; background: #f9f9f9; color: #222; margin: 0; padding: 0; }
+        .container { max-width: 700px; margin: 40px auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px #0001; padding: 32px; }
+        h1, h2 { color: #007bff; }
+        pre, code { background: #f3f3f3; border-radius: 6px; padding: 8px; direction: ltr; }
+        table { border-collapse: collapse; width: 100%; margin: 16px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background: #f0f8ff; }
+        ul, ol { margin-right: 24px; }
+        .tip { background: #e3fcec; border-right: 4px solid #28a745; padding: 8px 16px; border-radius: 6px; margin: 16px 0; }
+        .back { margin-top: 32px; text-align: left; }
+        .back a { color: #007bff; text-decoration: none; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🎨 راهنمای طراحی قالب برای Dima CMS</h1>
+    <div class="tip">
+        <b>قالب‌ها</b> ظاهر و تجربه کاربری سایت را به سادگی قابل تغییر می‌کنند.
+    </div>
+    <h2>ساختار قالب</h2>
+    <table>
+        <tr><th>مسیر</th><th>توضیح</th></tr>
+        <tr><td><code>themes/</code></td><td>پوشه اصلی قالب‌ها</td></tr>
+        <tr><td><code>themes/mytheme/</code></td><td>پوشه هر قالب</td></tr>
+        <tr><td><code>themes/mytheme/home/index.php</code></td><td>view صفحه اصلی</td></tr>
+        <tr><td><code>themes/mytheme/page/show.php</code></td><td>view صفحه ایستا</td></tr>
+        <tr><td><code>themes/mytheme/post/index.php</code></td><td>view لیست مطالب</td></tr>
+    </table>
+    <h2>نمونه کد view در قالب</h2>
+    <pre><code>&lt;?php
+// themes/mytheme/home/index.php
+?&gt;
+&lt;h1&gt;<?= htmlspecialchars($data['title']) ?>&lt;/h1&gt;
+</code></pre>
+    <h2>استایل و اسکریپت</h2>
+    <ul>
+        <li>فایل‌های CSS و JS را در پوشه قالب قرار دهید.</li>
+        <li>در viewها با تگ <code>&lt;link&gt;</code> و <code>&lt;script&gt;</code> فراخوانی کنید.</li>
+    </ul>
+    <h2>فعال‌سازی قالب</h2>
+    <ol>
+        <li>پوشه قالب را در <code>themes/</code> قرار دهید.</li>
+        <li>از پنل مدیریت، قالب را فعال کنید.</li>
+    </ol>
+    <div class="tip">
+        می‌توانید چندین قالب داشته باشید اما فقط یکی فعال است.
+    </div>
+    <div class="back">
+        <a href="../README.md">⬅ بازگشت به مستندات</a>
+    </div>
+</div>
+</body>
+</html> 

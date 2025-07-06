@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>راهنمای سیستم پیام‌رسانی Dima CMS</title>
+    <style>
+        body { font-family: Vazirmatn, Tahoma, sans-serif; background: #f9f9f9; color: #222; margin: 0; padding: 0; }
+        .container { max-width: 900px; margin: 40px auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px #0001; padding: 32px; }
+        h1, h2, h3 { color: #007bff; }
+        pre, code { background: #f3f3f3; border-radius: 6px; padding: 8px; direction: ltr; font-size: 0.95rem; }
+        .tip { background: #e3fcec; border-right: 4px solid #28a745; padding: 8px 16px; border-radius: 6px; margin: 16px 0; }
+        .back { margin-top: 32px; text-align: left; }
+        .back a { color: #007bff; text-decoration: none; }
+        ul.guide { margin: 16px 0 16px 24px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>راهنمای سیستم پیام‌رسانی Dima CMS</h1>
+    <div class="tip">
+        این راهنما نحوه ارسال، دریافت و مشاهده پیام‌های خصوصی بین کاربران و مدیران را در Dima CMS آموزش می‌دهد.
+    </div>
+    <h2>۱. ارسال پیام جدید</h2>
+    <ul class="guide">
+        <li>از منوی کاربری به بخش <b>ارسال پیام</b> بروید.</li>
+        <li>گیرنده (ID)، موضوع و متن پیام را وارد و ارسال کنید.</li>
+        <li>پس از ارسال، پیام در صندوق ارسالی شما و صندوق ورودی گیرنده نمایش داده می‌شود.</li>
+        <li>گیرنده یک اعلان (notification) دریافت می‌کند.</li>
+    </ul>
+    <h2>۲. مشاهده پیام‌های دریافتی و ارسالی</h2>
+    <ul class="guide">
+        <li>در بخش <b>صندوق ورودی</b> پیام‌های دریافتی و در <b>ارسالی</b> پیام‌های ارسال‌شده را مشاهده کنید.</li>
+        <li>پیام‌های جدید با رنگ و فونت متمایز نمایش داده می‌شوند.</li>
+        <li>با کلیک روی <b>مشاهده</b>، جزئیات پیام را ببینید.</li>
+    </ul>
+    <h2>۳. نکات امنیتی و توسعه</h2>
+    <ul class="guide">
+        <li>دسترسی به پیام فقط برای فرستنده و گیرنده مجاز است.</li>
+        <li>تمام داده‌ها با <code>htmlspecialchars</code> رندر می‌شود تا از XSS جلوگیری شود.</li>
+        <li>در صورت نیاز به توسعه (مثلاً انتخاب گیرنده با autocomplete یا نمایش نام کاربری)، کافی است view و مدل را گسترش دهید.</li>
+        <li>امکان اتصال پیام‌رسانی به سیستم نوتیفیکیشن و داشبورد وجود دارد.</li>
+    </ul>
+    <div class="tip">
+        برای ارسال پیام، فقط کافی است به بخش ارسال پیام بروید و فرم را تکمیل کنید؛ نیازی به کدنویسی نیست.
+    </div>
+    <div class="back">
+        <a href="../README.md">⬅ بازگشت به مستندات اصلی</a>
+    </div>
+</div>
+</body>
+</html> 
